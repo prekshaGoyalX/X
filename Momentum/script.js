@@ -35,17 +35,11 @@ function updateTime() {
 async function loadWallpaper() {
   try {
     const response = await fetch('https://bingw.jasonzeng.dev/?index=random');
-    const data = await response.json();
     
-    if (data && data.images && data.images[0] && data.images[0].url) {
-      const imageUrl = data.images[0].url;
-      // Handle relative URLs
-      const fullImageUrl = imageUrl.startsWith('http') 
-        ? imageUrl 
-        : `https://bingw.jasonzeng.dev${imageUrl}`;
+    if (response && response.url) {
       
       const backgroundElement = document.getElementById('backgroundImage');
-      backgroundElement.style.backgroundImage = `url(${fullImageUrl})`;
+      backgroundElement.style.backgroundImage = `url(${response.url})`;
     } else {
       // Fallback to a default image if API fails
       console.error('Failed to load wallpaper from API');
